@@ -52,12 +52,21 @@
 {
     int score = 0;
     
-    if ([otherCards count] == 1) {
-        PlayingCard *otherCard = [otherCards firstObject];
-        if (otherCard.rank == self.rank) {
-            score = 4;
-        } else if ([otherCard.suit isEqualToString:self.suit]) {
-            score = 1;
+    // have to compare this card with otherCards,
+    // AND otherCards with EACH OTHER, so this is
+    // a good old fashioned pick-2 combination problem
+    // therefore put all the cards in an array together
+    NSArray *cards = [otherCards arrayByAddingObject:self];
+
+    for (int i = 0; i < cards.count; i++) {
+        for (int j = i + 1; j < cards.count; j++) {
+            PlayingCard *card = cards[i];
+            PlayingCard *otherCard = cards[j];
+            if (otherCard.rank == card.rank) {
+                score += 4;
+            } else if ([otherCard.suit isEqualToString:card.suit]) {
+                score += 1;
+            }
         }
     }
     

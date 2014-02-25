@@ -9,12 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Deck.h"
 #import "Card.h"
-
-typedef NS_ENUM(NSInteger, CardMatchingGameResult) {
-    CardMatchingGameResultOther,
-    CardMatchingGameResultNoMatch,
-    CardMatchingGameResultMatch
-};
+#import "CardMatchingGameHistoryItem.h"
 
 @interface CardMatchingGame : NSObject
 
@@ -23,10 +18,10 @@ typedef NS_ENUM(NSInteger, CardMatchingGameResult) {
 
 - (void)chooseCardAtIndex:(NSUInteger)index;
 - (Card *)cardAtIndex:(NSUInteger)index;
-- (NSArray *)getLastConsideredCards;
+- (CardMatchingGameHistoryItem *)getLastResult;
 
 @property (nonatomic, readonly) NSInteger score;
 @property (nonatomic) NSUInteger cardsToMatch;
-@property (nonatomic, readonly) NSInteger lastScoreDelta;
-@property (nonatomic,readonly) CardMatchingGameResult lastResult;
+@property (nonatomic, strong, readonly) NSArray *history;
+
 @end

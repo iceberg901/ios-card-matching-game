@@ -10,10 +10,8 @@
 
 @interface CardMatchingGame()
 @property (nonatomic, readwrite) NSInteger score;
-@property (nonatomic, readwrite) NSInteger lastScoreDelta;
+@property (nonatomic, strong, readwrite) NSArray *history;
 @property (nonatomic, strong) NSMutableArray *cards;
-@property (nonatomic, strong) NSMutableArray *lastConsideredCards;
-@property (nonatomic, readwrite) CardMatchingGameResult lastResult;
 @end
 
 @implementation CardMatchingGame
@@ -24,10 +22,12 @@
     return _cards;
 }
 
-- (NSMutableArray *)lastConsideredCards
+- (NSArray *)history
 {
-    if (!_lastConsideredCards) _lastConsideredCards = [[NSMutableArray alloc] init];
-    return _lastConsideredCards;
+    if (!_history) {
+        _history = [[NSArray alloc] init];
+    }
+    return _history;
 }
 
 static const unsigned int DEFAULT_CARDS_TO_MATCH = 2;
@@ -52,9 +52,9 @@ static const unsigned int DEFAULT_CARDS_TO_MATCH = 2;
     return self;
 }
 
-- (NSArray *)getLastConsideredCards
+- (CardMatchingGameHistoryItem *)getLastResult;
 {
-    return self.lastConsideredCards;
+    return [self.history lastObject];
 }
 
 static const int MISMATCH_PENALTY = 2;
@@ -63,19 +63,19 @@ static const int COST_TO_CHOOSE = 1;
 
 // This method will choose or unchoose a card, then check
 // the chosen cards to see if there are any matches. The score
-// will then be updated accordingly.  So that clients can have more
-// information about what took place during the card choice and
-// subsequent updating of game state, we also update lastConsideredCards
-// and lastResult to keep track of what cards were considered and what
-// was the resulting impact on the game, respectively.
+// will then be updated accordingly.  If the card choice results in considering
+// cards for a match, store a CardMatchingGameHistoryItem with information about
+// what cards were considered, what the result was, and what was the impact on the score.
 - (void)chooseCardAtIndex:(NSUInteger)index
 {
     Card *card = [self cardAtIndex:index];
     if (!card.isMatched) {
-        [self initLastChoiceInfo];
+        CardMatchingGameHistoryItem *historyItem = [[CardMatchingGameHistoryItem alloc] init];
+        NSMutableArray *cardsConsidered = [NSMutableArray arrayWithArray:[self getChosenUnmatchedCards]];
         if (card.isChosen) {
             card.chosen = NO;
-            [self.lastConsideredCards removeObject:card];
+            [cardsConsidered removeObject:card];
+            historyItem.result = CardMatchingGameResultUnchoose;
         } else {
             NSMutableArray *otherCards = [[NSMutableArray alloc] init];
             // collect other chosen cards
@@ -87,21 +87,21 @@ static const int COST_TO_CHOOSE = 1;
                         // check for a match and finish
                         int matchScore = [card match:otherCards];
                         if (matchScore > 0) {
-                            self.lastScoreDelta = matchScore * MATCH_BONUS;
-                            self.score += self.lastScoreDelta;
+                            historyItem.scoreDelta = matchScore * MATCH_BONUS;
+                            self.score += historyItem.scoreDelta;
 
                             card.matched = YES;
                             for (Card *matchedCard in otherCards) {
                                 matchedCard.matched = YES;
                             }
-                            self.lastResult = CardMatchingGameResultMatch;
+                            historyItem.result = CardMatchingGameResultMatch;
                         } else {
-                            self.lastScoreDelta = -MISMATCH_PENALTY;
-                            self.score += self.lastScoreDelta;
+                            historyItem.scoreDelta = -MISMATCH_PENALTY;
+                            self.score += historyItem.scoreDelta;
                             for (Card *matchedCard in otherCards) {
                                 matchedCard.chosen = NO;
                             }
-                            self.lastResult = CardMatchingGameResultNoMatch;
+                            historyItem.result = CardMatchingGameResultNoMatch;
                         }
                         break;
                     }
@@ -109,25 +109,24 @@ static const int COST_TO_CHOOSE = 1;
             }
             self.score -= COST_TO_CHOOSE;
             card.chosen = YES;
-            [self.lastConsideredCards addObject:card];
+            [cardsConsidered addObject:card];
         }
+        historyItem.cardsConsidered = cardsConsidered;
+        self.history = [self.history arrayByAddingObject:historyItem];
     }
 }
 
-- (void)initLastChoiceInfo
+- (NSArray *)getChosenUnmatchedCards
 {
-    self.lastScoreDelta = 0;
-    self.lastResult = CardMatchingGameResultOther;
-    // empty the set of considered cards and build it up again
-    // out of all cards that will be considered in this turn, so that
-    // even after we've modified the chosen settings of some cards,
-    // a client can still find out which cards were considered
-    [self.lastConsideredCards removeAllObjects];
+    NSMutableArray *chosenUnmatchedCards = [[NSMutableArray alloc] init];
+
     for (Card *card in self.cards) {
         if (card.isChosen && !card.isMatched) {
-            [self.lastConsideredCards addObject:card];
+            [chosenUnmatchedCards addObject:card];
         }
     }
+
+    return chosenUnmatchedCards;
 }
 
 - (Card *)cardAtIndex:(NSUInteger)index

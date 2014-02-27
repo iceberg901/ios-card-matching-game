@@ -8,21 +8,14 @@
 
 #import "PlayingCardMatchingGameViewController.h"
 #import "PlayingCardDeck.h"
-#import "Card.h"
-#import "PlayingCardMatchingGameHistoryItemStatusMessageGenerator.h"
+#import "PLayingCard.h"
+#import "PlayingCardView.h"
 
 @interface PlayingCardMatchingGameViewController ()
 
 @end
 
 @implementation PlayingCardMatchingGameViewController
-
-
-- (CardMatchingGameHistoryItemStatusMessageGenerator *)messageGenerator
-{
-    return [PlayingCardMatchingGameHistoryItemStatusMessageGenerator sharedInstance];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -39,23 +32,25 @@
     return [UIImage imageNamed:card.isChosen ? @"cardFront" : @"cardBack"];
 }
 
+static const uint MAX_CARDS_ON_TABLE = 30;
+
 // Implement Abstract Methods
-- (void)updateUIForCardButton:(UIButton *)cardButton withCard:(Card *)card
+- (void)setup
 {
-    [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
-    [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
-    cardButton.enabled = !card.isMatched;
+    self.maxCardsOnTable = MAX_CARDS_ON_TABLE;
+}
+
+- (CardView *)createCardViewForCard:(Card *)card
+{
+    PlayingCardView *cardView = [[PlayingCardView alloc] initWithFrame:CGRectMake(100.0, 100.0, 40.0, 60.0)];
+    PlayingCard *playingCard = (PlayingCard *)card;
+    cardView.rank = playingCard.rank;
+    cardView.suit = playingCard.suit;
+    return cardView;
 }
 
 - (Deck *)createDeck
 {
     return [[PlayingCardDeck alloc] init];
 }
-
-- (void)performSegueToHistory:(UIBarButtonItem *)sender
-{
-    [self performSegueWithIdentifier:@"showPlayingCardHistory" sender:sender];
-}
-
-
 @end

@@ -11,15 +11,16 @@
 @interface CardMatchingGame()
 @property (nonatomic, readwrite) NSInteger score;
 @property (nonatomic, strong, readwrite) NSArray *history;
-@property (nonatomic, strong) NSMutableArray *cards;
+@property (nonatomic, strong) NSMutableArray *cardsOnTable;
+@property (nonatomic, strong) Deck *deck;
 @end
 
 @implementation CardMatchingGame
 
-- (NSMutableArray *)cards
+- (NSMutableArray *)cardsOnTable
 {
-    if (!_cards) _cards = [[NSMutableArray alloc] init];
-    return _cards;
+    if (!_cardsOnTable) _cardsOnTable = [[NSMutableArray alloc] init];
+    return _cardsOnTable;
 }
 
 - (NSArray *)history
@@ -40,13 +41,14 @@ static const unsigned int DEFAULT_CARDS_TO_MATCH = 2;
         for (int i = 0; i < count; i++) {
             Card *card = [deck drawRandomCard];
             if (card) {
-                [self.cards addObject:card];
+                [self.cardsOnTable addObject:card];
             } else {
                 self = nil;
                 break;
             }
         }
         self.cardsToMatch = DEFAULT_CARDS_TO_MATCH;
+        self.deck = deck;
     }
     
     return self;
@@ -79,7 +81,7 @@ static const int COST_TO_CHOOSE = 1;
         } else {
             NSMutableArray *otherCards = [[NSMutableArray alloc] init];
             // collect other chosen cards
-            for (Card *otherCard in self.cards) {
+            for (Card *otherCard in self.cardsOnTable) {
                 if (otherCard.isChosen && !otherCard.isMatched) {
                     [otherCards addObject:otherCard];
                     if ([otherCards count] == self.cardsToMatch - 1) {
@@ -120,7 +122,7 @@ static const int COST_TO_CHOOSE = 1;
 {
     NSMutableArray *chosenUnmatchedCards = [[NSMutableArray alloc] init];
 
-    for (Card *card in self.cards) {
+    for (Card *card in self.cardsOnTable) {
         if (card.isChosen && !card.isMatched) {
             [chosenUnmatchedCards addObject:card];
         }
@@ -129,12 +131,17 @@ static const int COST_TO_CHOOSE = 1;
     return chosenUnmatchedCards;
 }
 
+- (NSUInteger)numCardsOnTable
+{
+    return [self.cardsOnTable count];
+}
+
 - (Card *)cardAtIndex:(NSUInteger)index
 {
     Card *card = nil;
     
-    if (index < [self.cards count]) {
-        card = self.cards[index];
+    if (index < [self.cardsOnTable count]) {
+        card = self.cardsOnTable[index];
     }
     
     return card;

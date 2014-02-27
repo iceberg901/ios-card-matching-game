@@ -10,8 +10,8 @@
 #import "CardMatchingGame.h"
 
 @interface CardMatchingGameViewController : UIViewController
-
 @property (strong, nonatomic) CardMatchingGame *game;
-- (CardMatchingGame *)createGame;
+@property (nonatomic) NSUInteger maxCardsOnTable;
 
+- (CardMatchingGame *)createGame;
 @end

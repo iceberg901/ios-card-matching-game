@@ -9,19 +9,13 @@
 #import "SetMatchingGameViewController.h"
 #import "SetCardDeck.h"
 #import "SetCard.h"
-#import "SetCardMatchingGameHistoryItemStatusMessageGenerator.h"
+#import "SetCardView.h"
 
 @interface SetMatchingGameViewController ()
 
 @end
 
 @implementation SetMatchingGameViewController
-
-- (SetCardMatchingGameHistoryItemStatusMessageGenerator *)messageGenerator
-{
-    return [SetCardMatchingGameHistoryItemStatusMessageGenerator sharedInstance];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -36,31 +30,15 @@
     return game;
 }
 
-- (void)updateUIForCardButton:(UIButton *)cardButton withCard:(Card *)card
+//Implement abstract methods
+- (CardView *)createCardViewForCard:(Card *)card
 {
-
-    SetCard *setCard = (SetCard *)card;
-    [cardButton setAttributedTitle:[[self messageGenerator] displayStringForCard:setCard] forState:UIControlStateNormal];
-
-    //highlight for chosen cards
-    if (card.isChosen && !card.isMatched) {
-        cardButton.layer.borderColor = [[UIColor blackColor] CGColor];
-        cardButton.layer.borderWidth = 1.5f;
-    } else {
-        cardButton.layer.borderWidth = 0.0f;
-    }
-
-    cardButton.enabled = !card.isMatched;
+    SetCardView *cardView = [[SetCardView alloc] initWithFrame:CGRectMake(0.0, 0.0, 40.0, 60.0)];
+    return cardView;
 }
 
 - (Deck *)createDeck
 {
     return [[SetCardDeck alloc] init];
 }
-
-- (void)performSegueToHistory:(UIBarButtonItem *)sender
-{
-    [self performSegueWithIdentifier:@"showSetHistory" sender:sender];
-}
-
 @end

@@ -8,39 +8,43 @@
 
 #import "CardMatchingGameViewController.h"
 #import "CardMatchingGameHistoryItemStatusMessageGenerator.h"
-#import "CardMatchingGameHistoryViewController.h"
+#import "CardView.h"
+#import "Grid.h"
 
 @interface CardMatchingGameViewController ()
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
+@property (weak, nonatomic) IBOutlet UIView *cardContainerView;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+@property (strong, nonatomic) NSMutableArray *cardViews;
+@property (strong, nonatomic) Grid *grid;
 @end
 
 @implementation CardMatchingGameViewController
 
-- (IBAction)touchCardButton:(UIButton *)sender {
-    int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
-    [self.game chooseCardAtIndex:chosenButtonIndex];
-    [self updateUI];
+- (Grid *)grid
+{
+    if (!_grid) {
+        _grid = [[Grid alloc] init];
+    }
+
+    return _grid;
 }
 
 - (void)updateUI
 {
-    for (int i = 0; i < [self.cardButtons count]; i++) {
-        [self updateUIForCardButton:self.cardButtons[i] withCard:[self.game cardAtIndex:i]];
-    }
-    self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
-    self.statusLabel.attributedText = [self statusMessageForHistoryItem:[self.game.history lastObject]];
-}
+    self.grid.size = self.cardContainerView.bounds.size;
+    self.grid.cellAspectRatio = 40.0 / 60.0;
+    self.grid.minimumNumberOfCells = self.game.numCardsOnTable;
 
-- (NSAttributedString *)statusMessageForHistoryItem:(CardMatchingGameHistoryItem *)item
-{
-    return [[self messageGenerator] statusMessageForHistoryItem:item];
+//    [UIView animateWithDuration:2.0 animations:<#^(void)animations#>]
+//    self.grid.cellSize;
+
+    self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
 }
 
 - (CardMatchingGame *)createGame
 {
-    return [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count] usingDeck:self.createDeck];
+    return [[CardMatchingGame alloc] initWithCardCount:self.maxCardsOnTable usingDeck:self.createDeck];
 }
 
 - (CardMatchingGame *)game
@@ -49,15 +53,13 @@
     return _game;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (NSMutableArray *)cardViews
 {
-    if([segue.identifier isEqualToString:@"showPlayingCardHistory"] || [segue.identifier isEqualToString:@"showSetHistory"]) {
-        if ([segue.destinationViewController isKindOfClass:[CardMatchingGameHistoryViewController class]]) {
-            CardMatchingGameHistoryViewController *vc = (CardMatchingGameHistoryViewController *)segue.destinationViewController;
-            vc.game = self.game;
-            vc.messageGenerator = [self messageGenerator];
-        }
+    if (!_cardViews) {
+        _cardViews = [[NSMutableArray alloc] init];
     }
+
+    return _cardViews;
 }
 
 - (IBAction)newGameButtonPressed:(UIBarButtonItem *)sender {
@@ -65,21 +67,24 @@
     [self updateUI];
 }
 
-- (IBAction)historyButtonPressed:(UIBarButtonItem *)sender {
-    [self performSegueToHistory:sender];
-}
-
 // View Lifecycle Hooks
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    // Set up the buttons at the top of the NavigationView
-    UIBarButtonItem *historyButton = [[UIBarButtonItem alloc] initWithTitle:@"History" style:UIBarButtonItemStylePlain target:self action:@selector(historyButtonPressed:)];
-    self.navigationItem.rightBarButtonItem = historyButton;
+    [self setup];
 
+    // Set up the button at the top of the NavigationView
     UIBarButtonItem *newGameButton = [[UIBarButtonItem alloc] initWithTitle:@"New Game" style:UIBarButtonItemStylePlain target:self action:@selector(newGameButtonPressed:)];
-    self.navigationItem.leftBarButtonItem = newGameButton;
+    self.navigationItem.rightBarButtonItem = newGameButton;
+
+    // Create the first game
+    self.game = self.createGame;
+    for (int i = 0; i < self.maxCardsOnTable; i++) {
+        CardView *cardView = [self createCardViewForCard:[self.game cardAtIndex:i]];
+        [self.cardViews addObject:cardView];
+        [self.cardContainerView addSubview:cardView];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -90,23 +95,20 @@
 }
 
 // ABSTRACT METHODS
-- (void)updateUIForCardButton:(UIButton *)cardButton withCard:(Card *)card
+- (void)setup
 {
     //SHOULD I ASSERT HERE?
 }
 
-- (CardMatchingGameHistoryItemStatusMessageGenerator *)messageGenerator{
+- (CardView *)createCardViewForCard:(Card *)card
+{
     //SHOULD I ASSERT HERE?
     return nil;
 }
 
-- (void)performSegueToHistory:(UIBarButtonItem *)sender
-{
-    //SHOULD I ASSERT HERE?
-}
-
 - (Deck *)createDeck
 {
+    //SHOULD I ASSERT HERE?
     return nil;
 }
 @end

@@ -10,7 +10,14 @@
 #import "SetCard.h"
 
 @implementation CardMatchingGameHistoryItemStatusMessageGenerator
-+ (NSAttributedString *)statusMessageForHistoryItem:(CardMatchingGameHistoryItem *)item
++ (instancetype)sharedInstance
+{
+    NSAssert(NO, @"You called an abstract method, NO!");
+    return nil;
+}
+
+
+- (NSAttributedString *)statusMessageForHistoryItem:(CardMatchingGameHistoryItem *)item
 {
 
     NSAttributedString *cardMessage;
@@ -32,7 +39,7 @@
     return cardMessage;
 }
 
-+ (NSString *)statusMesageForScoreDelta:(NSInteger)delta
+- (NSString *)statusMesageForScoreDelta:(NSInteger)delta
 {
     if (delta > 0) {
         return [NSString stringWithFormat:@"matched for %d points", delta];
@@ -44,9 +51,8 @@
 }
 
 // ABSTRACT METHODS
-+ (NSAttributedString *)statusMessageForChosenCards:(NSArray *)cards
+- (NSAttributedString *)statusMessageForChosenCards:(NSArray *)cards
 {
-    //SHOULD I ASSERT HERE?
     return nil;
 }
 

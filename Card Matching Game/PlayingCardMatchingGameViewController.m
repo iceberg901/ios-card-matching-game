@@ -18,9 +18,9 @@
 @implementation PlayingCardMatchingGameViewController
 
 
-- (Class)statusMessageGeneratorClass
+- (CardMatchingGameHistoryItemStatusMessageGenerator *)messageGenerator
 {
-    return [PlayingCardMatchingGameHistoryItemStatusMessageGenerator class];
+    return [PlayingCardMatchingGameHistoryItemStatusMessageGenerator sharedInstance];
 }
 
 - (void)viewDidLoad

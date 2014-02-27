@@ -10,5 +10,6 @@
 #import "CardMatchingGameHistoryItem.h"
 
 @interface CardMatchingGameHistoryItemStatusMessageGenerator : NSObject
-+ (NSAttributedString *)statusMessageForHistoryItem:(CardMatchingGameHistoryItem *)item;
++ (instancetype)sharedInstance;
+- (NSAttributedString *)statusMessageForHistoryItem:(CardMatchingGameHistoryItem *)item;
 @end

@@ -9,19 +9,31 @@
 #import "SetCardMatchingGameHistoryItemStatusMessageGenerator.h"
 
 @implementation SetCardMatchingGameHistoryItemStatusMessageGenerator
-+ (NSAttributedString *)statusMessageForChosenCards:(NSArray *)cards
++ (instancetype)sharedInstance
+{
+    static SetCardMatchingGameHistoryItemStatusMessageGenerator *generator;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        generator = [[SetCardMatchingGameHistoryItemStatusMessageGenerator alloc] init];
+    });
+
+    return generator;
+}
+
+- (NSAttributedString *)statusMessageForChosenCards:(NSArray *)cards
 {
     NSMutableAttributedString *message = [[NSMutableAttributedString alloc] initWithString:@""];
 
     for (SetCard *card in cards) {
-        [message appendAttributedString:[SetCardMatchingGameHistoryItemStatusMessageGenerator displayStringForCard:card]];
+        [message appendAttributedString:[self displayStringForCard:card]];
         [message appendAttributedString:[[NSAttributedString alloc] initWithString:@" "]];
     }
 
     return message;
 }
 
-+ (NSAttributedString *)displayStringForCard:(SetCard *)card
+- (NSAttributedString *)displayStringForCard:(SetCard *)card
 {
     NSMutableDictionary *attributesDictionary = [[NSMutableDictionary alloc] init];
     //Prepare the card color
@@ -41,7 +53,7 @@
     return [[NSAttributedString alloc] initWithString:cardContents attributes:attributesDictionary];
 }
 
-+ (void)setCardContentsStrokeAttributes:(NSMutableDictionary *)attributesDictionary forCard:(SetCard *)card
+- (void)setCardContentsStrokeAttributes:(NSMutableDictionary *)attributesDictionary forCard:(SetCard *)card
 {
     //If we're going to be setting a stroke width on the card contents, we want it to be in the card's color
     attributesDictionary[NSStrokeColorAttributeName] = [self getUIColorForSetCardColor:card.color];
@@ -59,7 +71,7 @@
             break;
 
         case SetCardShadingSolid:
-        case SetCardShadingAllShadings:
+        case SetCardShadingLast:
             //No stroke
             break;
 
@@ -69,7 +81,7 @@
     }
 }
 
-+ (UIColor *)getUIColorForSetCardColor:(SetCardColor)color
+- (UIColor *)getUIColorForSetCardColor:(SetCardColor)color
 {
     switch (color) {
         case SetCardColorGreen:
@@ -83,7 +95,7 @@
             return [UIColor purpleColor];
             break;
 
-        case SetCardColorAllColors:
+        case SetCardColorLast:
             return [UIColor blackColor];
             break;
     }

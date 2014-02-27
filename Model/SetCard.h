@@ -14,7 +14,7 @@ typedef NS_ENUM(NSInteger, SetCardColor) {
     SetCardColorGreen,
     SetCardColorPurple,
 
-    SetCardColorAllColors //placeholder for terminating an iteration of all values
+    SetCardColorLast //placeholder for terminating an iteration of all values
 };
 
 // the different shadings a set card can have
@@ -23,7 +23,7 @@ typedef NS_ENUM(NSInteger, SetCardShading) {
     SetCardShadingStriped,
     SetCardShadingOpen,
 
-    SetCardShadingAllShadings //placeholder for terminating an iteration of all values
+    SetCardShadingLast //placeholder for terminating an iteration of all values
 };
 
 @interface SetCard : Card

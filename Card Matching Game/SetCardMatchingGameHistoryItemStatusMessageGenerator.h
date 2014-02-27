@@ -10,5 +10,5 @@
 #import "SetCard.h"
 
 @interface SetCardMatchingGameHistoryItemStatusMessageGenerator : CardMatchingGameHistoryItemStatusMessageGenerator
-+ (NSAttributedString *)displayStringForCard:(SetCard *)card;
+- (NSAttributedString *)displayStringForCard:(SetCard *)card;
 @end

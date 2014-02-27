@@ -12,8 +12,6 @@
 @interface CardMatchingGameViewController : UIViewController
 
 @property (strong, nonatomic) CardMatchingGame *game;
-@property (nonatomic) Class statusMessageGeneratorClass;
-
 - (CardMatchingGame *)createGame;
 
 @end

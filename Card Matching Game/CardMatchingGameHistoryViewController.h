@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "CardMatchingGame.h"
 
+@class CardMatchingGameHistoryItemStatusMessageGenerator;
+
 @interface CardMatchingGameHistoryViewController : UIViewController
 @property (strong, nonatomic) CardMatchingGame *game;
-@property (nonatomic) Class messageGeneratorClass;
+@property (strong, nonatomic) CardMatchingGameHistoryItemStatusMessageGenerator *messageGenerator;
 @end

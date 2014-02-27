@@ -35,7 +35,7 @@
 
 - (NSAttributedString *)statusMessageForHistoryItem:(CardMatchingGameHistoryItem *)item
 {
-    return [self.statusMessageGeneratorClass statusMessageForHistoryItem:item];
+    return [[self messageGenerator] statusMessageForHistoryItem:item];
 }
 
 - (CardMatchingGame *)createGame
@@ -55,7 +55,7 @@
         if ([segue.destinationViewController isKindOfClass:[CardMatchingGameHistoryViewController class]]) {
             CardMatchingGameHistoryViewController *vc = (CardMatchingGameHistoryViewController *)segue.destinationViewController;
             vc.game = self.game;
-            vc.messageGeneratorClass = self.statusMessageGeneratorClass;
+            vc.messageGenerator = [self messageGenerator];
         }
     }
 }
@@ -95,9 +95,9 @@
     //SHOULD I ASSERT HERE?
 }
 
-- (void)setMessageGeneratorClassForHistoryViewController:(CardMatchingGameHistoryViewController *)vc
-{
+- (CardMatchingGameHistoryItemStatusMessageGenerator *)messageGenerator{
     //SHOULD I ASSERT HERE?
+    return nil;
 }
 
 - (void)performSegueToHistory:(UIBarButtonItem *)sender

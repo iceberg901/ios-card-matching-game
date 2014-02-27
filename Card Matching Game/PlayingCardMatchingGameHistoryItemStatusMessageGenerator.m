@@ -10,7 +10,19 @@
 #import "Card.h"
 
 @implementation PlayingCardMatchingGameHistoryItemStatusMessageGenerator
-+ (NSAttributedString *)statusMessageForChosenCards:(NSArray *)cards
++ (instancetype)sharedInstance
+{
+    static PlayingCardMatchingGameHistoryItemStatusMessageGenerator *generator;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        generator = [[PlayingCardMatchingGameHistoryItemStatusMessageGenerator alloc] init];
+    });
+
+    return generator;
+}
+
+- (NSAttributedString *)statusMessageForChosenCards:(NSArray *)cards
 {
     NSString *message = @"";
 

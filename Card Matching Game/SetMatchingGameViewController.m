@@ -17,9 +17,9 @@
 
 @implementation SetMatchingGameViewController
 
-- (Class)statusMessageGeneratorClass
+- (SetCardMatchingGameHistoryItemStatusMessageGenerator *)messageGenerator
 {
-    return [SetCardMatchingGameHistoryItemStatusMessageGenerator class];
+    return [SetCardMatchingGameHistoryItemStatusMessageGenerator sharedInstance];
 }
 
 - (void)viewDidLoad
@@ -40,7 +40,7 @@
 {
 
     SetCard *setCard = (SetCard *)card;
-    [cardButton setAttributedTitle:[SetCardMatchingGameHistoryItemStatusMessageGenerator displayStringForCard:setCard] forState:UIControlStateNormal];
+    [cardButton setAttributedTitle:[[self messageGenerator] displayStringForCard:setCard] forState:UIControlStateNormal];
 
     //highlight for chosen cards
     if (card.isChosen && !card.isMatched) {

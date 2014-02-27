@@ -18,8 +18,8 @@
     if (self) {
         for (NSString *shape in [SetCard validShapes]) {
             for (uint i = 1; i <= [SetCard maxCount]; i++) {
-                for (SetCardColor color = 0; color < SetCardColorAllColors; color++) {
-                    for (SetCardShading shading = 0; shading < SetCardShadingAllShadings; shading++) {
+                for (SetCardColor color = 0; color < SetCardColorLast; color++) {
+                    for (SetCardShading shading = 0; shading < SetCardShadingLast; shading++) {
                         SetCard *card = [SetCard new];
                         card.shape = shape;
                         card.count = i;

@@ -8,6 +8,7 @@
 
 #import "CardMatchingGameHistoryViewController.h"
 #import "CardMatchingGameHistoryItem.h"
+#import "CardMatchingGameHistoryItemStatusMessageGenerator.h"
 
 @interface CardMatchingGameHistoryViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *historyTextView;
@@ -25,7 +26,7 @@
         historyReport = [[NSMutableAttributedString alloc] init];
 
         for (CardMatchingGameHistoryItem *item in self.game.history) {
-            NSAttributedString *statusMessage = [self statusMessageForHistoryItem:item];
+            NSAttributedString *statusMessage = [self.messageGenerator statusMessageForHistoryItem:item];
             if ([statusMessage length]) {
                 [historyReport appendAttributedString:statusMessage];
                 [historyReport appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
@@ -41,12 +42,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self updateUI];
-}
-
-// Abstract Methods
-- (NSAttributedString *)statusMessageForHistoryItem:(CardMatchingGameHistoryItem *)item
-{
-    return [self.messageGeneratorClass statusMessageForHistoryItem:item];
 }
 
 @end

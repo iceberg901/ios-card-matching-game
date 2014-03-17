@@ -35,23 +35,37 @@ static const unsigned int DEFAULT_CARDS_TO_MATCH = 2;
 
 - (instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck
 {
+    NSLog(@"Creating a deck");
     self = [super init];
     
     if (self) {
-        for (int i = 0; i < count; i++) {
-            Card *card = [deck drawRandomCard];
-            if (card) {
-                [self.cardsOnTable addObject:card];
-            } else {
-                self = nil;
-                break;
-            }
+        self.deck = deck;
+        [self drawCards:count];
+        if ([self.cardsOnTable count] != count) {
+            NSLog(@"Not enough cards!");
+            self = nil;
         }
         self.cardsToMatch = DEFAULT_CARDS_TO_MATCH;
-        self.deck = deck;
     }
     
     return self;
+}
+
+- (NSArray *)drawCards:(NSUInteger)numCards
+{
+    NSMutableArray *drawnCards = [[NSMutableArray alloc] init];
+
+    for (NSUInteger i = 0; i < numCards; i++) {
+        Card *card = [self.deck drawRandomCard];
+        if (card) {
+            [self.cardsOnTable addObject:card];
+            [drawnCards addObject:card];
+        } else {
+            break;
+        }
+    }
+
+    return drawnCards;
 }
 
 - (CardMatchingGameHistoryItem *)getLastResult;
@@ -134,6 +148,11 @@ static const int COST_TO_CHOOSE = 1;
 - (NSUInteger)numCardsOnTable
 {
     return [self.cardsOnTable count];
+}
+
+- (NSUInteger)numCardsInDeck
+{
+    return [self.deck numCards];
 }
 
 - (Card *)cardAtIndex:(NSUInteger)index

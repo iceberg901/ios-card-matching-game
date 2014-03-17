@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="bH4-hF-9pn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="bH4-hF-9pn">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
         <!--Set Matching Game View Controller-->
@@ -16,25 +16,39 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wpF-e2-DyS">
-                                <rect key="frame" x="20" y="498" width="280" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wpF-e2-DyS">
+                                <rect key="frame" x="20" y="478" width="64" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F7q-Sg-vhi">
-                                <rect key="frame" x="20" y="469" width="280" height="21"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="739-Dx-xQz">
+                                <rect key="frame" x="20" y="72" width="280" height="398"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.25098040699958801" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wpF-e2-DyS" firstAttribute="top" secondItem="739-Dx-xQz" secondAttribute="bottom" constant="8" symbolic="YES" id="DP4-9D-KQY"/>
+                            <constraint firstItem="739-Dx-xQz" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" symbolic="YES" id="UyV-8a-SgB"/>
+                            <constraint firstItem="wpF-e2-DyS" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="20" symbolic="YES" id="VtP-hh-uRC"/>
+                            <constraint firstItem="739-Dx-xQz" firstAttribute="top" secondItem="wTU-4a-Qm5" secondAttribute="bottom" constant="20" symbolic="YES" id="jce-62-vCv"/>
+                            <constraint firstAttribute="trailing" secondItem="739-Dx-xQz" secondAttribute="trailing" constant="20" symbolic="YES" id="wDD-cf-e0W"/>
+                            <constraint firstAttribute="bottom" secondItem="wpF-e2-DyS" secondAttribute="bottom" constant="20" symbolic="YES" id="x5h-Mz-ifw"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="mdp-ze-agA"/>
+                    <navigationItem key="navigationItem" id="mdp-ze-agA">
+                        <barButtonItem key="leftBarButtonItem" title="More Cards" id="RA7-xM-5Qx">
+                            <connections>
+                                <action selector="moreCardsButtonTapped:" destination="vXZ-lx-hvc" id="xMm-Vd-hJ1"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="scoreLabel" destination="wpF-e2-DyS" id="gr7-a4-yOq"/>
-                        <outlet property="statusLabel" destination="F7q-Sg-vhi" id="Fc2-Xa-xIm"/>
+                        <outlet property="cardContainerView" destination="739-Dx-xQz" id="2HC-lt-2ob"/>
+                        <outlet property="moreCardsButton" destination="RA7-xM-5Qx" id="r6h-SI-9au"/>
+                        <outlet property="scoreLabel" destination="wpF-e2-DyS" id="DXx-mZ-MNg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -59,7 +73,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uj1-sg-7op">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uj1-sg-7op">
                                 <rect key="frame" x="20" y="72" width="280" height="398"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>

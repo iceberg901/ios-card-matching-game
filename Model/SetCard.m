@@ -13,18 +13,6 @@
 @synthesize shape = _shape;
 
 // setters and getters
-- (void)setShape:(NSString *)shape
-{
-    if ([[SetCard validShapes] containsObject:shape]) {
-        _shape = shape;
-    }
-}
-
-- (NSString *)getShape
-{
-    return _shape ? _shape : @"?";
-}
-
 static const uint MAX_COUNT = 3;
 
 - (void)setCount:(NSUInteger)count
@@ -35,12 +23,6 @@ static const uint MAX_COUNT = 3;
 }
 
 // Class methods
-+ (NSArray *)validShapes
-{
-    return @[@"▲", @"●", @"■"];
-}
-
-
 + (NSUInteger)maxCount
 {
     return MAX_COUNT;
@@ -71,7 +53,7 @@ static const uint MAX_COUNT = 3;
         for (int j = i + 1; j < cards.count; j++) {
             SetCard *card = cards[i];
             SetCard *otherCard = cards[j];
-            if ([otherCard.shape isEqualToString:card.shape]) {
+            if (otherCard.shape == card.shape) {
                 shapeMatches++;
             }
             if (otherCard.count == card.count) {

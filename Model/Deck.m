@@ -34,6 +34,11 @@
     [self addCard:card atTop:NO];
 }
 
+- (NSUInteger)numCards
+{
+    return [[self cards] count];
+}
+
 - (Card *)drawRandomCard
 {
     Card *randomCard = nil;

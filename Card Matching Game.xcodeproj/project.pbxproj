@@ -36,9 +36,6 @@
 		3BBAA24018AD83AA008CC4CA /* PlayingCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA23B18AD83AA008CC4CA /* PlayingCard.m */; };
 		3BBAA24118AD83AA008CC4CA /* PlayingCardDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BBAA23D18AD83AA008CC4CA /* PlayingCardDeck.m */; };
 		3BD7CA6D18B7FDC400C61F65 /* CardMatchingGameHistoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD7CA6C18B7FDC400C61F65 /* CardMatchingGameHistoryItem.m */; };
-		3BFA8E8718BBB315009B4D83 /* CardMatchingGameHistoryItemStatusMessageGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BFA8E8618BBB315009B4D83 /* CardMatchingGameHistoryItemStatusMessageGenerator.m */; };
-		3BFA8E8A18BBB52F009B4D83 /* PlayingCardMatchingGameHistoryItemStatusMessageGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BFA8E8918BBB52F009B4D83 /* PlayingCardMatchingGameHistoryItemStatusMessageGenerator.m */; };
-		3BFA8E8D18BBB56A009B4D83 /* SetCardMatchingGameHistoryItemStatusMessageGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BFA8E8C18BBB56A009B4D83 /* SetCardMatchingGameHistoryItemStatusMessageGenerator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +55,7 @@
 		3B1F0E6518BE587E00772674 /* PlayingCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayingCardView.m; path = View/PlayingCardView.m; sourceTree = SOURCE_ROOT; };
 		3B1F0E6718BE6FA200772674 /* SetCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SetCardView.h; path = View/SetCardView.h; sourceTree = SOURCE_ROOT; };
 		3B1F0E6818BE6FA200772674 /* SetCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SetCardView.m; path = View/SetCardView.m; sourceTree = SOURCE_ROOT; };
+		3B4EDDD318D0F88900CCF35D /* RandomUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RandomUtils.h; sourceTree = "<group>"; };
 		3B59C50F18AE69C500691DF3 /* CardMatchingGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CardMatchingGame.h; path = ../Model/CardMatchingGame.h; sourceTree = "<group>"; };
 		3B59C51018AE69C500691DF3 /* CardMatchingGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CardMatchingGame.m; path = ../Model/CardMatchingGame.m; sourceTree = "<group>"; };
 		3B6C1E2418BD5EC000AB65FA /* Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
@@ -100,12 +98,6 @@
 		3BBAA23D18AD83AA008CC4CA /* PlayingCardDeck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayingCardDeck.m; path = Model/PlayingCardDeck.m; sourceTree = SOURCE_ROOT; };
 		3BD7CA6B18B7FDC400C61F65 /* CardMatchingGameHistoryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CardMatchingGameHistoryItem.h; path = Model/CardMatchingGameHistoryItem.h; sourceTree = SOURCE_ROOT; };
 		3BD7CA6C18B7FDC400C61F65 /* CardMatchingGameHistoryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CardMatchingGameHistoryItem.m; path = Model/CardMatchingGameHistoryItem.m; sourceTree = SOURCE_ROOT; };
-		3BFA8E8518BBB315009B4D83 /* CardMatchingGameHistoryItemStatusMessageGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardMatchingGameHistoryItemStatusMessageGenerator.h; sourceTree = "<group>"; };
-		3BFA8E8618BBB315009B4D83 /* CardMatchingGameHistoryItemStatusMessageGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardMatchingGameHistoryItemStatusMessageGenerator.m; sourceTree = "<group>"; };
-		3BFA8E8818BBB52F009B4D83 /* PlayingCardMatchingGameHistoryItemStatusMessageGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayingCardMatchingGameHistoryItemStatusMessageGenerator.h; sourceTree = "<group>"; };
-		3BFA8E8918BBB52F009B4D83 /* PlayingCardMatchingGameHistoryItemStatusMessageGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayingCardMatchingGameHistoryItemStatusMessageGenerator.m; sourceTree = "<group>"; };
-		3BFA8E8B18BBB56A009B4D83 /* SetCardMatchingGameHistoryItemStatusMessageGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetCardMatchingGameHistoryItemStatusMessageGenerator.h; sourceTree = "<group>"; };
-		3BFA8E8C18BBB56A009B4D83 /* SetCardMatchingGameHistoryItemStatusMessageGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetCardMatchingGameHistoryItemStatusMessageGenerator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,17 +192,12 @@
 			children = (
 				3B6C1E2418BD5EC000AB65FA /* Grid.h */,
 				3B6C1E2518BD5EC000AB65FA /* Grid.m */,
-				3BFA8E8B18BBB56A009B4D83 /* SetCardMatchingGameHistoryItemStatusMessageGenerator.h */,
-				3BFA8E8C18BBB56A009B4D83 /* SetCardMatchingGameHistoryItemStatusMessageGenerator.m */,
-				3BFA8E8518BBB315009B4D83 /* CardMatchingGameHistoryItemStatusMessageGenerator.h */,
-				3BFA8E8618BBB315009B4D83 /* CardMatchingGameHistoryItemStatusMessageGenerator.m */,
-				3BFA8E8818BBB52F009B4D83 /* PlayingCardMatchingGameHistoryItemStatusMessageGenerator.h */,
-				3BFA8E8918BBB52F009B4D83 /* PlayingCardMatchingGameHistoryItemStatusMessageGenerator.m */,
 				3B922A8D18B5463900E4DB92 /* .gitignore */,
 				3BBAA1FC18AD724E008CC4CA /* Card Matching Game-Info.plist */,
 				3BBAA1FD18AD724E008CC4CA /* InfoPlist.strings */,
 				3BBAA20018AD724E008CC4CA /* main.m */,
 				3BBAA20218AD724E008CC4CA /* Card Matching Game-Prefix.pch */,
+				3B4EDDD318D0F88900CCF35D /* RandomUtils.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -301,7 +288,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = CardMatchingGame;
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Joshua Samberg";
 				TargetAttributes = {
 					3BBAA21118AD724E008CC4CA = {
@@ -357,17 +344,14 @@
 			files = (
 				3BBAA24018AD83AA008CC4CA /* PlayingCard.m in Sources */,
 				3BBAA23F18AD83AA008CC4CA /* Deck.m in Sources */,
-				3BFA8E8718BBB315009B4D83 /* CardMatchingGameHistoryItemStatusMessageGenerator.m in Sources */,
 				3BB6C8D318B65B0D00EC561A /* SetMatchingGameViewController.m in Sources */,
 				3BBAA20B18AD724E008CC4CA /* CardMatchingGameViewController.m in Sources */,
 				3BBAA20118AD724E008CC4CA /* main.m in Sources */,
-				3BFA8E8D18BBB56A009B4D83 /* SetCardMatchingGameHistoryItemStatusMessageGenerator.m in Sources */,
 				3B59C51118AE69C500691DF3 /* CardMatchingGame.m in Sources */,
 				3B1F0E6618BE587E00772674 /* PlayingCardView.m in Sources */,
 				3B1F0E6318BE3E8700772674 /* CardView.m in Sources */,
 				3B922A9418B54F7B00E4DB92 /* SetCardDeck.m in Sources */,
 				3B1F0E6918BE6FA200772674 /* SetCardView.m in Sources */,
-				3BFA8E8A18BBB52F009B4D83 /* PlayingCardMatchingGameHistoryItemStatusMessageGenerator.m in Sources */,
 				3BBAA24118AD83AA008CC4CA /* PlayingCardDeck.m in Sources */,
 				3B922A9718B553FD00E4DB92 /* PlayingCardMatchingGameViewController.m in Sources */,
 				3B6C1E2618BD5EC000AB65FA /* Grid.m in Sources */,
@@ -428,7 +412,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -467,7 +450,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -525,7 +507,6 @@
 		3BBAA22718AD724E008CC4CA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Card Matching Game.app/Card Matching Game";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -548,7 +529,6 @@
 		3BBAA22818AD724E008CC4CA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Card Matching Game.app/Card Matching Game";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

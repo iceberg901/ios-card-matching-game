@@ -8,6 +8,15 @@
 
 #import "Card.h"
 
+// the different shapes a set card can have
+typedef NS_ENUM(NSInteger, SetCardShape) {
+    SetCardShapeDiamond,
+    SetCardShapeSquiggle,
+    SetCardShapeOval,
+
+    SetCardShapeLast //placeholder for terminating an iteration of all values
+};
+
 // the different colors a set card can have
 typedef NS_ENUM(NSInteger, SetCardColor) {
     SetCardColorRed,
@@ -27,11 +36,10 @@ typedef NS_ENUM(NSInteger, SetCardShading) {
 };
 
 @interface SetCard : Card
-@property(strong, nonatomic) NSString *shape;
+@property(nonatomic) SetCardShape shape;
 @property(nonatomic) NSUInteger count;
 @property(nonatomic) SetCardColor color;
 @property(nonatomic) SetCardShading shading;
 
-+ (NSArray *)validShapes;
 + (NSUInteger)maxCount;
 @end

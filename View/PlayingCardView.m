@@ -13,7 +13,6 @@
 - (void)setup
 {
     [super setup];
-    [self addTarget:self action:@selector(cardTouched) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)setRank:(NSUInteger)rank
@@ -30,17 +29,9 @@
 
 - (void)setFaceUp:(BOOL)faceUp
 {
+
     _faceUp = faceUp;
     [self setNeedsDisplay];
-}
-
-- (void)cardTouched
-{
-    if (!self.faceUp) {
-        [UIView transitionWithView:self duration:0.5 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
-                self.faceUp = YES;
-        } completion:nil];
-    }
 }
 
 - (void)drawCornerContents
@@ -62,7 +53,7 @@
 
 - (NSString *)rankAsString
 {
-    return @[@"?", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"J", @"Q", @"K"][self.rank];
+    return @[@"?", @"A", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"J", @"Q", @"K"][self.rank];
 }
 
 // Implement abstract methods

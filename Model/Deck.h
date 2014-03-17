@@ -13,7 +13,6 @@
 
 - (void)addCard:(Card *)card atTop:(BOOL)atTop;
 - (void)addCard:(Card *)card;
-
+- (NSUInteger)numCards;
 - (Card *)drawRandomCard;
-
 @end

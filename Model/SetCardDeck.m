@@ -16,7 +16,7 @@
     self = [super init];
 
     if (self) {
-        for (NSString *shape in [SetCard validShapes]) {
+        for (SetCardShape shape = 0; shape < SetCardShapeLast; shape++) {
             for (uint i = 1; i <= [SetCard maxCount]; i++) {
                 for (SetCardColor color = 0; color < SetCardColorLast; color++) {
                     for (SetCardShading shading = 0; shading < SetCardShadingLast; shading++) {

@@ -17,7 +17,9 @@
 - (instancetype)initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck;
 
 - (void)chooseCardAtIndex:(NSUInteger)index;
+- (NSArray *)drawCards:(NSUInteger)numCards;
 - (NSUInteger)numCardsOnTable;
+- (NSUInteger)numCardsInDeck;
 - (Card *)cardAtIndex:(NSUInteger)index;
 - (CardMatchingGameHistoryItem *)getLastResult;
 

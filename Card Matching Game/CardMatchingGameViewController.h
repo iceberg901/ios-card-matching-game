@@ -9,9 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "CardMatchingGame.h"
 
+@class CardView;
+
 @interface CardMatchingGameViewController : UIViewController
 @property (strong, nonatomic) CardMatchingGame *game;
 @property (nonatomic) NSUInteger maxCardsOnTable;
+@property (strong, nonatomic) NSMutableArray *cardViews;
 
 - (CardMatchingGame *)createGame;
+- (void)setup;
 @end

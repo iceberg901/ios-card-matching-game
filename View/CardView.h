@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Joshua Samberg. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "Card.h"
 
 @interface CardView : UIControl

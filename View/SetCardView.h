@@ -7,7 +7,12 @@
 //
 
 #import "CardView.h"
+#import "SetCard.h"
 
 @interface SetCardView : CardView
-
+@property (nonatomic) SetCardShape shape;
+@property (nonatomic) NSUInteger count;
+@property (nonatomic) SetCardColor color;
+@property (nonatomic) SetCardShading shading;
+@property (nonatomic) BOOL disabled;
 @end
